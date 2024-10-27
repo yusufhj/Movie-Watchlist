@@ -1,97 +1,117 @@
-# MEN Stack Starter Template with Session Authentication
+# Movie Watchlist
 
-Welcome to the MEN Stack Starter Template! This template provides a foundational setup for building web applications using MongoDB, Express.js, and Node.js, complete with session authentication. This is ideal for students looking to kickstart their development projects.
-
-## Table of Contents
-- [Prerequisites](#prerequisites)
-- [Clone the Repository](#clone-the-repository)
-- [Installation](#installation)
-- [Environment Setup](#environment-setup)
-- [Running the Application](#running-the-application)
-- [Removing Git and Creating Your Own Repo](#removing-git-and-creating-your-own-repo)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed on your machine:
-- [Node.js](https://nodejs.org/) (LTS or later)
-- [MongoDB](https://www.mongodb.com/) (make sure it's running)
-- [Git](https://git-scm.com/) (for cloning the repository)
-
-## Clone the Repository
-
-To clone this repository, open your terminal and run:
-
-```bash
-git clone https://github.com/SEB-1-Bahrain/instructor-men-auth.git men-stack-starter-template
-```
-
-## Installation
-Navigate into the cloned directory:
-```bash
-cd men-stack-starter-template
-```
-
-Then, install the necessary dependencies:
-
-```bash
-npm i
-```
-
-## Environment Setup
-```plaintext
-MONGODB_URI=atlas_db_uri
-SESSION_SECRET=your_secret_key
-SALT_ROUNDS=10
-```
-Replace `atlas_db_uri` with your desired database name and `your_secret_key` with a secure key.
-
-## Removing Git and Creating Your Own Repo
-To remove the existing Git history and create your own repository:
-
-1. Remove the existing .git folder:
-  ```bash
-  rm -rf .git
-  ```
-2. Initialize a new Git repository:
-  ```bash
-  git init
-  ```
-3. Add all files to the new repository:
-  ```bash
-  git add .
-  ```
-4. Commit the changes
-   ```bash
-   git commit -m "Initial commit"
-   ``` 
-5. Create a new repository on GitHub (or any other platform) and follow the instructions to push your local repository.
-  Make a new repository on [GitHub](https://github.com/) named `<your-project-name>`
-  Now link your local project to your remote GitHub repo:
-  ```bash
-  git remote add origin https://github.com/<github-username>/men-stack-relating-data-lab-cookbook.git
-  git push origin main
-  ```
-
-> 🚨 Do not copy the above command. It will not work. Your GitHub username will replace `<github-username>` (including the `<` and `>`) in the URL above.
-
-## Running the application
-```bash
-npm run dev
-```
+## Overview
+The Movie Watchlist Tracker is a CRUD web application designed to help users manage their movie-watching journey. Users can track movies they want to watch, are currently watching, or have already seen. The app allows users to leave ratings and reviews for movies they have watched, making it a comprehensive tool for movie enthusiasts.
 
 ## Features
-- User registration and login with session management
-- Basic CRUD operations
-- Modular file structure
-- Example routes and controllers
-- Basic user model setup
-- Middleware for templates and authorization
-- Basic authentication flow
+- User registration and authentication
+- Add movies to a single watchlist
+- Update movie status: Want to Watch, Currently Watching, Already Seen
+- Review and rate movies
+- View complete watchlist
+- Explore and view movies from other users
+- Delete movies from the watchlist
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## User Stories
 
-Happy Coding!
+1. **User Registration and Login**
+   - As a new user, I want to register for an account so that I can create my own movie watchlist.
+   - As a returning user, I want to log in securely so that I can access my saved watchlist.
+
+2. **Add Movies to Watchlist**
+   - As a user, I want to add a movie to my watchlist so that I can keep track of movies I plan to watch.
+   - As a user, I want to have a status on each movie as "Want to Watch," "Currently Watching," or "Already Seen."
+
+3. **Update Movie Status**
+   - As a user, I want to update the status of a movie to "Currently Watching" or "Already Seen" so that my watchlist accurately reflects my viewing progress.
+
+4. **Review and Rate Movies**
+   - As a user, I want to add a rating and a review to movies I’ve marked as "Already Seen" so that I can remember my thoughts and impressions of the movie.
+   - As a user, I want to edit my review or rating in case my opinion changes after rewatching the movie.
+
+5. **View Watchlist**
+   - As a user, I want to view my entire watchlist on a single dashboard so that I can quickly see all the movies I’ve added and their statuses.
+
+6. **Explore Movies**
+   - As a user/guest, I want to explore other users' movies listed and their reviews.
+
+7. **Delete Movies from Watchlist**
+   - As a user, I want to remove a movie from my watchlist if I no longer want to watch it so that my list stays relevant and organized.
+
+## Technical Stack
+- **Frontend**: HTML, CSS, JavaScript (with a library/framework such as React or Vue.js)
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+
+## Pseudocode
+
+### **Add Movie to Watchlist**
+```plaintext
+FUNCTION addMovieToWatchlist(userID, movieID):
+    CREATE new Watchlist_movie with userID and movieID
+    RETURN "Movie added to watchlist."  
+```
+
+### **Update Movie from Watchlist**
+```plaintext
+FUNCTION updateMovie(movieID, title, genre, release_date, director, status):
+    IF status NOT IN ["Want to Watch", "Currently Watching", "Already Seen"] THEN
+        RETURN "Invalid status."
+    IF movieID NOT found THEN
+        RETURN "Movie not found."
+    UPDATE movie WHERE id = movieID WITH:
+        title = title,
+        genre = genre,
+        release_date = release_date,
+        director = director,
+        status = status
+    RETURN "Movie details updated."
+```
+
+### **Delete Movie from Watchlist**
+```plaintext
+FUNCTION deleteMovieFromWatchlist(movieID):
+    DELETE movie WHERE id = movieID
+    RETURN "Movie removed from watchlist."
+```
+
+### **Add Review and Rating**
+```plaintext
+FUNCTION addReview(userID, movieID, rating, comment):
+    IF rating NOT IN [1, 2, 3, 4, 5] THEN
+        RETURN "Invalid rating."
+    IF movie status != "Already Seen" THEN
+        RETURN "Movie must be marked as 'Already Seen' to add review."
+    IF user has already reviewed this movie THEN
+        RETURN "You have already reviewed this movie."
+    CREATE new Review with userID, movieID, rating, and comment
+    RETURN "Review and rating added."
+```
+
+### **View Watchlist**
+```plaintext
+FUNCTION viewWatchlist(userID):
+    watchlist = GET all movies WHERE userID = userID
+    RETURN watchlist
+```
+
+### **Explore Movies**
+```plaintext
+FUNCTION exploreMovies():
+    allMovies = GET all Movies
+    RETURN allMovies
+```
+
+## Database Schema (ERD Diagram)
+The database schema consists of three main tables: Users, Movies, and Reviews. The Users table stores user information, the Movies table stores movie details and status, and the Reviews table stores user reviews and ratings for movies. The Watchlist_movies table is a junction table that connects Users and Movies to create a many-to-many relationship.
+
+![ERD Diagram](resourses/ERD.png)
+
+
+## Movie Watchlist Wireframe Mockups
+The wireframe mockups for the Movie Watchlist are displayed below. The mockups show the user interface for the main features of the application, including the user registration and login page, the movie details page, and the explore movies page:
+
+![Mockups](resourses/Mockups.png)
+
+## Attribution
+- [General Assembly Auth Template](https://github.com/SEB-1-Bahrain/instructor-men-auth.git)
