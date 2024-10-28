@@ -27,5 +27,8 @@
         </select>
         <button type="submit">Save Movie</button>
     </form>
+    <form action="/watchlist/<%= movie._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete</button>
+    </form>
 </body>
 </html>

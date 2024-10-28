@@ -6,15 +6,13 @@
     <title>View Movie</title>
 </head>
 <body>
-    <%- include('../partials/_navbar.ejs') %>
+    <%- include('./partials/_navbar.ejs') %>
     <h1>View <%= movie.title %></h1>
     <img src="<%= movie.poster %>" alt="<%= movie.title %>">
     <h2>Title: <%= movie.title %></h2>
     <p>Genre: <%= movie.genre %></p>
     <p>Release Date: <%= new Date(movie.releaseDate).toISOString().split('T')[0] %></p>
     <p>Director: <%= movie.director %></p>
-    <p>Status: <%= movie.status %></p>
-    <a href="/watchlist/<%= movie._id %>/edit">Edit</a>
 
 
     <h2>Reviews</h2>

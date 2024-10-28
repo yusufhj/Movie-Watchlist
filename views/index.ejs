@@ -10,5 +10,16 @@
   <body>
     <%- include('./partials/_navbar.ejs') %>
     <h1>HOME PAGEE</h1>
+    <ul>
+      <% movies.forEach((movie) => { %>
+          <li>
+            <a href="/movies/<%= movie._id %>">
+              <img src="<%= movie.poster %>" alt="<%= movie.title %>">
+              <h2>Title: <%= movie.title %></h2>
+            </a>
+          </li>
+          <br><br><br><br><br><br><br>
+      <% }) %>
+  </ul>
   </body>
 </html>

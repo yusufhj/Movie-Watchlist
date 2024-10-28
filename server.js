@@ -7,6 +7,11 @@ const addUserToViews = require('./middleware/addUserToViews');
 require('dotenv').config();
 require('./config/database');
 
+// Models
+const Movie = require('./models/movie');
+const Review = require('./models/review');
+
+
 // Controllers
 const authController = require('./controllers/auth');
 const watchlistController = require('./controllers/watchlist');
@@ -39,7 +44,14 @@ app.use(addUserToViews);
 
 // Public Routes
 app.get('/', async (req, res) => {
-  res.render('index.ejs');
+  const movies = await Movie.find({});
+  res.render('index.ejs', { movies });
+});
+
+app.get('/movies/:movieId', async (req, res) => {
+  const movie = await Movie.findById(req.params.movieId);
+  const reviews = await Review.find({ movie: req.params.movieId }).populate('user');
+  res.render('show.ejs', { movie, reviews });
 });
 
 app.use('/auth', authController);

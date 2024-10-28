@@ -12,13 +12,10 @@
     <ul>
         <% movies.forEach((movie) => { %>
             <li>
-                <img src="<%= movie.poster %>" alt="<%= movie.title %>">
-                <h2>Title: <%= movie.title %></h2>
-                <p>Genre: <%= movie.genre %></p>
-                <p>Release Date: <%= new Date(movie.releaseDate).toISOString().split('T')[0] %></p>
-                <p>Director: <%= movie.director %></p>
-                <p>Status: <%= movie.status %></p>
-                <a href="/watchlist/<%= movie._id %>">Details</a>
+                <a href="/watchlist/<%= movie._id %>">
+                    <img src="<%= movie.poster %>" alt="<%= movie.title %>">
+                    <h2>Title: <%= movie.title %></h2>
+                </a>
             </li>
             <br><br><br><br><br><br><br>
         <% }) %>

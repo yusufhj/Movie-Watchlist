@@ -76,5 +76,20 @@ router.post('/:movieId/review', async (req, res) => {
     res.redirect(`/watchlist/${req.params.movieId}`);
 });
 
+// review edit
+router.get('/:movieId/review/:reviewId/edit', async (req, res) => {
+    const movie = await Movie.findById(req.params.movieId);
+    const review = await Review.findById(req.params.reviewId);
+    // console.log(review);
+    res.render('watchlist/review/edit.ejs', { review, movie });
+});
+
+// review put
+router.put('/:movieId/review/:reviewId', async (req, res) => {
+    const review = await Review.findByIdAndUpdate(req.params.reviewId, req.body);
+    // console.log(review);
+    res.redirect(`/watchlist/${req.params.movieId}`);
+});
+
 
 module.exports = router;
