@@ -9,6 +9,7 @@ require('./config/database');
 
 // Controllers
 const authController = require('./controllers/auth');
+const watchlistController = require('./controllers/watchlist');
 const isSignedIn = require('./middleware/isSignedIn');
 
 const app = express();
@@ -45,15 +46,8 @@ app.use('/auth', authController);
 
 // Protected Routes
 app.use(isSignedIn);
+app.use('/watchlist', watchlistController);
 
-app.get('/protected', async (req, res) => {
-  if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-  } else {
-    res.sendStatus(404);
-    // res.send('Sorry, no guests allowed.');
-  }
-});
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console

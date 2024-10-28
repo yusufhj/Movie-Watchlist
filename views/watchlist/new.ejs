@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+</head>
+<body>
+    <h1>Add Movie</h1>
+    <form action="/watchlist" method="post">
+        <!-- const movieSchema = new mongoose.Schema({
+    poster: String,
+    title: {
+      type: String,
+      required: true,
+    },
+    genre: String,
+    releaseDate: Date,
+    director: String,
+    status: {
+      type: String,
+      enum: ['Want to watch', 'Currently watching', 'Watched'],
+      default: 'Want to watch',
+    },
+    reviews: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review',
+      },
+    ],
+  }); -->
+        
+        <label for="poster">Poster</label>
+        <input type="text" name="poster" id="poster">
+        <br>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" required>
+        <br>
+        <label for="genre">Genre</label>
+        <input type="text" name="genre" id="genre">
+        <br>
+        <label for="releaseDate">Release Date</label>
+        <input type="date" name="releaseDate" id="releaseDate">
+        <br>
+        <label for="director">Director</label>
+        <input type="text" name="director" id="director">
+        <br>
+        <label for="status">Status</label>
+        <select name="status" id="status" required>
+            <option value="Want to watch">Want to watch</option>
+            <option value="Currently watching">Currently watching</option>
+            <option value="Watched">Watched</option>
+        </select>
+        <br>
+        <button type="submit">Add Movie</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Watchlist</title>
+</head>
+<body>
+    <h1>My Watchlist</h1>
+    <a href="/watchlist/new">New Movie</a>
+    <ul>
+        <% movies.forEach((movie) => { %>
+            <li>
+                <img src="<%= movie.poster %>" alt="<%= movie.title %>">
+                <h2>Title: <%= movie.title %></h2>
+                <p>Genre: <%= movie.genre %></p>
+                <p>Release Date: <%= new Date(movie.releaseDate).toISOString().split('T')[0] %></p>
+                <p>Director: <%= movie.director %></p>
+                <p>Status: <%= movie.status %></p>
+            </li>
+            <br>
+        <% }) %>
+    </ul>
+</body>
+</html>
