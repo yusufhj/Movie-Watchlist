@@ -17,6 +17,7 @@
                 <p>Release Date: <%= new Date(movie.releaseDate).toISOString().split('T')[0] %></p>
                 <p>Director: <%= movie.director %></p>
                 <p>Status: <%= movie.status %></p>
+                <a href="/watchlist/<%= movie._id %>">Details</a>
             </li>
             <br>
         <% }) %>

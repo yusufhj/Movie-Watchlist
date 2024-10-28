@@ -17,12 +17,12 @@ router.get('/', async (req, res) => {
     res.render('watchlist/index.ejs', { movies });
 });
 
-// New
+// new
 router.get('/new', async (req, res) => {
     res.render('watchlist/new.ejs');
 });
 
-// Create
+// create
 router.post('/', async (req, res) => {
     const movieData = req.body;
     console.log(movieData);
@@ -32,5 +32,13 @@ router.post('/', async (req, res) => {
     // console.log(movie);
     res.redirect('/watchlist');
 });
+
+// show
+router.get('/:movieId', async (req, res) => {
+    const movie = await Movie.findById(req.params.movieId).populate('reviews');
+    console.log(movie);
+    res.render('watchlist/show.ejs', { movie });
+});
+
 
 module.exports = router;
