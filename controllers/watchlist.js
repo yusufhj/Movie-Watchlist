@@ -9,7 +9,8 @@ const Review = require('../models/review');
 // Index
 router.get('/', async (req, res) => {
     // console.log("watchlist index route");
-    const watchlist = await Watchlist.find({ user: req.session.userId }).populate('movies');
+    const watchlist = await Watchlist.find({ user: res.locals.user._id }).populate('movies');
+    // console.log('user id in watchlist: ', res.locals.user._id);
     const movies = await Movie.find();
 
     // console.log('movies: ', movies);
@@ -26,7 +27,7 @@ router.post('/', async (req, res) => {
     const movieData = req.body;
     console.log(movieData);
     const movie = await Movie.create(req.body);
-    const watchlist = await Watchlist.create({ user: req.session.userId, movies: [movie._id] });
+    const watchlist = await Watchlist.create({ user: res.locals.user._id, movies: [movie._id] });
     // console.log(watchlist);
     // console.log(movie);
     res.redirect('/watchlist');
@@ -35,12 +36,10 @@ router.post('/', async (req, res) => {
 // show
 router.get('/:movieId', async (req, res) => {
     const movie = await Movie.findById(req.params.movieId).populate('reviews');
-    const reviews = await Review.find({ movie: req.params.movieId });
-    const userReview = await Review.findOne({ user: req.session.userId, movie: req.params.movieId });
-    console.log(movie);
-    console.log(reviews);
-    console.log(userReview);
-    res.render('watchlist/show.ejs', { movie, reviews, userReview });
+    const reviews = await Review.find({ movie: req.params.movieId }).populate('user');
+    // console.log(movie);
+    console.log('review: ',reviews);
+    res.render('watchlist/show.ejs', { movie, reviews });
 });
 
 // edit
@@ -64,10 +63,18 @@ router.delete('/:movieId', async (req, res) => {
     res.redirect('/watchlist');
 })
 
-// Review
+// review new
 router.get('/:movieId/review/new', async (req, res) => {
     const movie = await Movie.findById(req.params.movieId);
     res.render('watchlist/review/new.ejs', { movie });
 });
+
+// review create
+router.post('/:movieId/review', async (req, res) => {
+    const review = await Review.create({ user: res.locals.user._id, movie: req.params.movieId, ...req.body });
+    // console.log(review);
+    res.redirect(`/watchlist/${req.params.movieId}`);
+});
+
 
 module.exports = router;
