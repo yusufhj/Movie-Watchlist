@@ -40,5 +40,18 @@ router.get('/:movieId', async (req, res) => {
     res.render('watchlist/show.ejs', { movie });
 });
 
+// edit
+router.get('/:movieId/edit', async (req, res) => {
+    const movie = await Movie.findById(req.params.movieId);
+    // console.log(movie); 
+    res.render('watchlist/edit.ejs', { movie });
+});
+
+// put
+router.put('/:movieId', async (req, res) => {
+    const movie = await Movie.findByIdAndUpdate(req.params.movieId, req.body);
+    // console.log(movie);
+    res.redirect('/watchlist');
+});
 
 module.exports = router;
