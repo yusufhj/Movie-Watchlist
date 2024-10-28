@@ -8,13 +8,16 @@ const Review = require('../models/review');
 
 // Index
 router.get('/', async (req, res) => {
-    // console.log("watchlist index route");
-    const watchlist = await Watchlist.find({ user: res.locals.user._id }).populate('movies');
-    // console.log('user id in watchlist: ', res.locals.user._id);
-    const movies = await Movie.find();
-
-    // console.log('movies: ', movies);
-    res.render('watchlist/index.ejs', { movies });
+    const watchlist = await Watchlist.findOne({ user: res.locals.user._id }).populate('movies');
+    // console.log('watchlist: ', watchlist);
+    if (!watchlist) {
+        res.render('watchlist/index.ejs', { movies: [] });
+        return;
+    } else {
+        const movies = watchlist.movies;
+        // console.log('movies: ', movies);
+        res.render('watchlist/index.ejs', { movies });
+    }
 });
 
 // new
@@ -27,9 +30,18 @@ router.post('/', async (req, res) => {
     const movieData = req.body;
     console.log(movieData);
     const movie = await Movie.create(req.body);
-    const watchlist = await Watchlist.create({ user: res.locals.user._id, movies: [movie._id] });
-    // console.log(watchlist);
-    // console.log(movie);
+    if (Watchlist.findOne({ user: res.locals.user._id })) {
+        const watchlist = await Watchlist.findOneAndUpdate(
+            { user: res.locals.user._id },
+            { $push: { movies: movie._id } },
+            { new: true, upsert: true }
+        );
+        console.log(watchlist);
+    } else {
+        const watchlist = await Watchlist.create({ user: res.locals.user._id, movies: [movie._id] });
+        console.log(watchlist);
+    }
+    console.log(movie);
     res.redirect('/watchlist');
 });
 

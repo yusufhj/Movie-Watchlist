@@ -9,16 +9,19 @@
     <%- include('../partials/_navbar.ejs') %>
     <h1>My Watchlist</h1>
     <a href="/watchlist/new">New Movie</a>
-    <ul>
-        <% movies.forEach((movie) => { %>
-            <li>
-                <a href="/watchlist/<%= movie._id %>">
-                    <img src="<%= movie.poster %>" alt="<%= movie.title %>">
-                    <h2>Title: <%= movie.title %></h2>
-                </a>
-            </li>
-            <br><br><br><br><br><br><br>
-        <% }) %>
-    </ul>
+    <% if (movies.length > 0) { %>
+        <ul>
+            <% movies.forEach((movie) => { %>
+                <li>
+                    <a href="/watchlist/<%= movie._id %>">
+                        <img src="<%= movie.poster %>" alt="<%= movie.title %>">
+                        <h2>Title: <%= movie.title %></h2>
+                    </a>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No movies in your watchlist yet</p>
+    <% } %>
 </body>
 </html>

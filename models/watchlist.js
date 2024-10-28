@@ -5,12 +5,10 @@ const watchlistSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  movies: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Movie',
-      },
-    ]
+  movies: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Movie',
+  }],
 });
 
 module.exports = mongoose.model('Watchlist', watchlistSchema);
