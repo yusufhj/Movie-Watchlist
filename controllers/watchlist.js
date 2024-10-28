@@ -49,9 +49,11 @@ router.post('/', async (req, res) => {
 router.get('/:movieId', async (req, res) => {
     const movie = await Movie.findById(req.params.movieId).populate('reviews');
     const reviews = await Review.find({ movie: req.params.movieId }).populate('user');
+    const userReview = reviews.find(review => review.user._id.equals(res.locals.user._id));
     // console.log(movie);
     console.log('review: ',reviews);
-    res.render('watchlist/show.ejs', { movie, reviews });
+    console.log('userReview: ', userReview);
+    res.render('watchlist/show.ejs', { movie, reviews, userReview });
 });
 
 // edit

@@ -49,9 +49,13 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/movies/:movieId', async (req, res) => {
-  const movie = await Movie.findById(req.params.movieId);
+  const movie = await Movie.findById(req.params.movieId).populate('reviews');
   const reviews = await Review.find({ movie: req.params.movieId }).populate('user');
-  res.render('show.ejs', { movie, reviews });
+  const userReview = reviews.find(review => review.user._id.equals(res.locals.user._id));
+  // console.log(movie);
+  console.log('review: ',reviews);
+  console.log('userReview: ', userReview);
+  res.render('show.ejs', { movie, reviews, userReview });
 });
 
 app.use('/auth', authController);
