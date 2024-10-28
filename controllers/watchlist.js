@@ -5,7 +5,6 @@ const router = express.Router();
 const Watchlist = require('../models/watchlist');
 const Movie = require('../models/movie');
 const Review = require('../models/review');
-const User = require('../models/user');
 
 // Index
 router.get('/', async (req, res) => {
@@ -36,8 +35,12 @@ router.post('/', async (req, res) => {
 // show
 router.get('/:movieId', async (req, res) => {
     const movie = await Movie.findById(req.params.movieId).populate('reviews');
+    const reviews = await Review.find({ movie: req.params.movieId });
+    const userReview = await Review.findOne({ user: req.session.userId, movie: req.params.movieId });
     console.log(movie);
-    res.render('watchlist/show.ejs', { movie });
+    console.log(reviews);
+    console.log(userReview);
+    res.render('watchlist/show.ejs', { movie, reviews, userReview });
 });
 
 // edit
@@ -52,6 +55,19 @@ router.put('/:movieId', async (req, res) => {
     const movie = await Movie.findByIdAndUpdate(req.params.movieId, req.body);
     // console.log(movie);
     res.redirect('/watchlist');
+});
+
+// deletee
+router.delete('/:movieId', async (req, res) => {
+    const movie = await Movie.findByIdAndDelete(req.params.movieId);
+    // console.log(movie);
+    res.redirect('/watchlist');
+})
+
+// Review
+router.get('/:movieId/review/new', async (req, res) => {
+    const movie = await Movie.findById(req.params.movieId);
+    res.render('watchlist/review/new.ejs', { movie });
 });
 
 module.exports = router;

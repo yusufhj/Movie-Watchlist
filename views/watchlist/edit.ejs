@@ -6,6 +6,7 @@
     <title>Edit Movie</title>
 </head>
 <body>
+    <%- include('../partials/_navbar.ejs') %>
     <h1>Edit <%= movie.title %></h1>
     <form action="/watchlist/<%= movie._id %>?_method=PUT" method="POST">
         <label for="poster">Poster</label>
