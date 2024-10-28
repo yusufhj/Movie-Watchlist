@@ -29,13 +29,11 @@
         <% if (reviews.length > 0) { %>
             <ul>
                 <% reviews.forEach((review) => { %>
-                    <% if (review.user._id != locals.user._id) { %>
-                        <li>
-                            <h3><%= review.user.username %></h3>
-                            <p>Rating: <%= review.rating %></p>
-                            <p>Review: <%= review.review %></p>
-                        </li>
-                    <% } %>
+                    <li>
+                        <h3><%= review.user.username %></h3>
+                        <p>Rating: <%= review.rating %></p>
+                        <p>Review: <%= review.review %></p>
+                    </li>
                 <% }) %>
             </ul>
         <% } else { %>

@@ -51,6 +51,10 @@ app.get('/', async (req, res) => {
 app.get('/movies/:movieId', async (req, res) => {
   const movie = await Movie.findById(req.params.movieId).populate('reviews');
   const reviews = await Review.find({ movie: req.params.movieId }).populate('user');
+  if (!res.locals.user) {
+    res.render('show.ejs', { movie, reviews, userReview: null });
+    return;
+  }
   const userReview = reviews.find(review => review.user._id.equals(res.locals.user._id));
   // console.log(movie);
   console.log('review: ',reviews);
