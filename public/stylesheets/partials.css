@@ -5,23 +5,17 @@
   padding: 5px 20px;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
   font-size: large;
-}
-
-#nav-header {
-  color: #ce4866;
-  size: 1em !important;
-  margin: 0;
 }
 
 .authlink {
   text-decoration: none;
   margin: 0 15px;
-  color: #4b598e;
+  color: #ffffff;
   font-weight: bold;
 }
 
 .authlink:hover {
-  color: white;
+  color: #b2b2b2;
 }

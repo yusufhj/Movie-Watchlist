@@ -8,8 +8,10 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>My Watchlist</h1>
-    <a href="/watchlist/new">New Movie</a>
+    <div class="topper">
+        <h1 class="body-header">My Watchlist</h1>
+        <a href="/watchlist/new" class="new-movie-link">New Movie</a>
+    </div>
     <% if (movies.length > 0) { %>
         <div class="movie-card-container">
             <% movies.forEach((movie) => { %>
