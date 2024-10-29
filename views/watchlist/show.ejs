@@ -8,15 +8,22 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <a href="/watchlist/<%= movie._id %>/edit">Edit</a>
-
+    
     <div class="show-movie">
         <div class="show-details">
+            <a href="/watchlist/<%= movie._id %>/edit" class="edit-btn">Edit Movie Details</a>
             <h1><%= movie.title %></h1>
             <p>Genre: <%= movie.genre %></p>
             <p>Release Date: <%= new Date(movie.releaseDate).toISOString().split('T')[0] %></p>
             <p>Director: <%= movie.director %></p>
-            <p>Status: <%= movie.status %></p>
+            <form action="/watchlist/<%= movie._id %>/status?_method=PUT" method="POST">
+                <label for="status">Status:</label>
+                <select name="status" id="status" onchange="this.form.submit()">
+                    <option value="Want to watch" <% if (movie.status == "Want to watch") { %> selected <% } %>>Want to watch</option>
+                    <option value="Currently watching" <% if (movie.status == "Currently watching") { %> selected <% } %>>Currently watching</option>
+                    <option value="Watched" <% if (movie.status == "Watched") { %> selected <% } %>>Watched</option>
+                </select>
+            </form>
 
             <div class="reviews">
                 <% if (userReview) { %>
@@ -25,7 +32,12 @@
                     <p>Review: <%= userReview.review %></p>
                     <a href="/watchlist/<%= movie._id %>/review/<%= userReview._id %>/edit">Edit</a>
                 <% } else { %>
-                    <a href="/watchlist/<%= movie._id %>/review/new">Add Review</a>
+                    <% if (movie.status == "Watched") { %>
+                        <p>You have not reviewed this movie yet</p>
+                        <a href="/watchlist/<%= movie._id %>/review/new" class="">Add Review</a>
+                    <% } else { %>
+                        <p>You can only review movies you have watched</p>
+                    <% } %>
                 <% } %>
         
                 <h2>Reviews</h2>

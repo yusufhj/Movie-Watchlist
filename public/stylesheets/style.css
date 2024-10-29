@@ -30,7 +30,7 @@ body {
   align-items: center;
 }
 
-.new-movie-link {
+.new-movie-link, .edit-btn {
   display: inline-block;
   background-color: #007BFF;
   padding: 10px 20px;
@@ -43,8 +43,14 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.new-movie-link:hover {
+.new-movie-link:hover, .edit-btn:hover {
     background-color: #0056b3;
+}
+
+.edit-btn {
+  position: absolute;
+  left: 60%;
+  margin: 20px;
 }
 
 .movie-card-container {

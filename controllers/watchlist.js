@@ -81,6 +81,15 @@ router.delete('/:movieId', async (req, res) => {
     res.redirect('/watchlist');
 })
 
+// status update
+router.put('/:movieId/status', async (req, res) => {
+    const movie = await Movie.findById(req.params.movieId);
+    movie.status = req.body.status;
+    await movie.save();
+    // console.log(movie);
+    res.redirect(`/watchlist/${req.params.movieId}`);
+});
+
 // review new
 router.get('/:movieId/review/new', async (req, res) => {
     const movie = await Movie.findById(req.params.movieId);
