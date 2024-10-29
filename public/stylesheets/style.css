@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box
+}
+
+body {
+  background-color: gray;
+  /* Use a system font, if none are available use an available sans-sarif font */
+  font-family: system-ui, sans-serif;
+  /* Ensures full height compatibility across devices */
+  min-height: 100dvh;
+  margin: 0;
+}
+
+.movie-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+}
+
+.movie-card {
+  border-radius: 10px;
+  margin: 10px;
+  padding: 20px;
+  width: 300px;
+}
+
+.movie-card img {
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.movie-card h2 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.movie-card a {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 1rem;
+  margin-top: 10px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.movie-card a:hover {
+  transform: translateY(-10px);
+  transition: transform 0.2s ease;
+}

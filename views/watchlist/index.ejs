@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>My Watchlist</title>
 </head>
 <body>
@@ -10,16 +11,16 @@
     <h1>My Watchlist</h1>
     <a href="/watchlist/new">New Movie</a>
     <% if (movies.length > 0) { %>
-        <ul>
+        <div class="movie-card-container">
             <% movies.forEach((movie) => { %>
-                <li>
+                <div class="movie-card">  
                     <a href="/watchlist/<%= movie._id %>">
-                        <img src="<%= movie.poster %>" alt="<%= movie.title %>">
-                        <h2>Title: <%= movie.title %></h2>
+                        <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="width: 200px; height: 300px;">
+                        <h2><%= movie.title %></h2>
                     </a>
-                </li>
+                </div>
             <% }) %>
-        </ul>
+        </div>
     <% } else { %>
         <p>No movies in your watchlist yet</p>
     <% } %>

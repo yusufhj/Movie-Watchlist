@@ -5,20 +5,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>Home Page</title>
   </head>
   <body>
     <%- include('./partials/_navbar.ejs') %>
     <h1>HOME PAGEE</h1>
-    <ul>
-      <% movies.forEach((movie) => { %>
-          <li>
+    <div class="movie-card-container">
+        <% movies.forEach((movie) => { %>
+          <div class="movie-card">
             <a href="/movies/<%= movie._id %>">
-              <img src="<%= movie.poster %>" alt="<%= movie.title %>">
-              <h2>Title: <%= movie.title %></h2>
+                <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="width: 200px; height: 300px;">
+              <h2><%= movie.title %></h2>
             </a>
-          </li>
-      <% }) %>
-  </ul>
+          </div>
+        <% }) %>
+      </div>
   </body>
 </html>

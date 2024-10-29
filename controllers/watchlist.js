@@ -51,8 +51,8 @@ router.get('/:movieId', async (req, res) => {
     const reviews = await Review.find({ movie: req.params.movieId }).populate('user');
     const userReview = reviews.find(review => review.user._id.equals(res.locals.user._id));
     // console.log(movie);
-    console.log('review: ',reviews);
-    console.log('userReview: ', userReview);
+    // console.log('review: ',reviews);
+    // console.log('userReview: ', userReview);
     res.render('watchlist/show.ejs', { movie, reviews, userReview });
 });
 
@@ -73,6 +73,10 @@ router.put('/:movieId', async (req, res) => {
 // deletee
 router.delete('/:movieId', async (req, res) => {
     const movie = await Movie.findByIdAndDelete(req.params.movieId);
+    if (movie.reviews.length > 0) {
+        console.log('movie reviews: ', movie.reviews);
+        await Review.deleteMany({ movie: req.params.movieId });
+    }
     // console.log(movie);
     res.redirect('/watchlist');
 })
@@ -86,6 +90,7 @@ router.get('/:movieId/review/new', async (req, res) => {
 // review create
 router.post('/:movieId/review', async (req, res) => {
     const review = await Review.create({ user: res.locals.user._id, movie: req.params.movieId, ...req.body });
+    await Movie.findByIdAndUpdate(req.params.movieId, { $push: { reviews: review._id } });
     // console.log(review);
     res.redirect(`/watchlist/${req.params.movieId}`);
 });
