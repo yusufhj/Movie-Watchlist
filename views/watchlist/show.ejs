@@ -54,31 +54,31 @@
                 <% } %>
             
                 <h2>Reviews</h2>
-                <% if (reviews.length > 0) { %>
+                <% let otherReviews = reviews.filter(review => review.user._id != locals.user._id); %>
+                <% if (otherReviews.length > 0 ) { %>
                     <ul>
-                        <% reviews.forEach((review) => { %>
-                            <% if (review.user._id != locals.user._id) { %>
-                                <li>
-                                    <h3><%= review.user.username %></h3>
-                                    <div class="review-rating">
-                                        <label>Rating:</label>
-                                        <div class="star-rating1">
-                                            <% for (let i = 1; i <= 5; i++) { %>
-                                                <span class="star <% if (i <= review.rating) { %> filled <% } %>">&#9733;</span>
-                                            <% } %>
-                                        </div>
+                        <% otherReviews.forEach((review) => { %>
+                            <li>
+                                <h3><%= review.user.username %></h3>
+                                <div class="review-rating">
+                                    <label>Rating:</label>
+                                    <div class="star-rating1">
+                                        <% for (let i = 1; i <= 5; i++) { %>
+                                            <span class="star <% if (i <= review.rating) { %> filled <% } %>">&#9733;</span>
+                                        <% } %>
                                     </div>
-                                    <% if (review.review) {%>
-                                        <label>Review:</label>
-                                        <span><%= review.review %></span>
-                                    <% } %>
-                                </li>
-                            <% } %>
+                                </div>
+                                <% if (review.review) {%>
+                                    <label>Review:</label>
+                                    <span><%= review.review %></span>
+                                <% } %>
+                            </li>
                         <% }) %>
                     </ul>
                 <% } else { %>
                     <p>No reviews yet</p>
                 <% } %>
+
             </div>
             
 

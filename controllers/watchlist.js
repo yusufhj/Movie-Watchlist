@@ -5,6 +5,7 @@ const router = express.Router();
 const Watchlist = require('../models/watchlist');
 const Movie = require('../models/movie');
 const Review = require('../models/review');
+const movie = require('../models/movie');
 
 // Index
 router.get('/', async (req, res) => {
@@ -39,7 +40,7 @@ router.get('/new', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const movieData = req.body;
-        console.log(movieData);
+        // console.log(movieData);
         const movie = await Movie.create(req.body);
         if (Watchlist.findOne({ user: res.locals.user._id })) {
             const watchlist = await Watchlist.findOneAndUpdate(
@@ -47,12 +48,12 @@ router.post('/', async (req, res) => {
                 { $push: { movies: movie._id } },
                 { new: true, upsert: true }
             );
-            console.log(watchlist);
+            // console.log(watchlist);
         } else {
             const watchlist = await Watchlist.create({ user: res.locals.user._id, movies: [movie._id] });
-            console.log(watchlist);
+            // console.log(watchlist);
         }
-        console.log(movie);
+        // console.log(movie);
         res.redirect('/watchlist');
     } catch (error) {
         console.log(error);
@@ -63,6 +64,11 @@ router.post('/', async (req, res) => {
 // show
 router.get('/:movieId', async (req, res) => {
     try {
+        const watchlist = await Watchlist.findOne({ user: res.locals.user._id });
+        if (!watchlist || !watchlist.movies.includes(req.params.movieId)) {
+            res.redirect('/watchlist');
+            return;
+        }
         const movie = await Movie.findById(req.params.movieId).populate('reviews');
         const reviews = await Review.find({ movie: req.params.movieId }).populate('user');
         const userReview = reviews.find(review => review.user._id.equals(res.locals.user._id));
@@ -79,6 +85,11 @@ router.get('/:movieId', async (req, res) => {
 // edit
 router.get('/:movieId/edit', async (req, res) => {
     try {
+        const watchlist = await Watchlist.findOne({ user: res.locals.user._id });
+        if (!watchlist || !watchlist.movies.includes(req.params.movieId)) {
+            res.redirect('/watchlist');
+            return;
+        }
         const movie = await Movie.findById(req.params.movieId);
         // console.log(movie); 
         res.render('watchlist/edit.ejs', { movie });
@@ -91,6 +102,11 @@ router.get('/:movieId/edit', async (req, res) => {
 // put
 router.put('/:movieId', async (req, res) => {
     try {
+        const watchlist = await Watchlist.findOne({ user: res.locals.user._id });
+        if (!watchlist || !watchlist.movies.includes(req.params.movieId)) {
+            res.redirect('/watchlist');
+            return;
+        }
         const movie = await Movie.findByIdAndUpdate(req.params.movieId, req.body);
         // console.log(movie);
         res.redirect('/watchlist');
@@ -104,9 +120,14 @@ router.put('/:movieId', async (req, res) => {
 // deletee
 router.delete('/:movieId', async (req, res) => {
     try {
+        const watchlist = await Watchlist.findOne({ user: res.locals.user._id });
+        if (!watchlist || !watchlist.movies.includes(req.params.movieId)) {
+            res.redirect('/watchlist');
+            return;
+        }
         const movie = await Movie.findByIdAndDelete(req.params.movieId);
         if (movie.reviews.length > 0) {
-            console.log('movie reviews: ', movie.reviews);
+            // console.log('movie reviews: ', movie.reviews);
             await Review.deleteMany({ movie: req.params.movieId });
         }
         // console.log(movie);
@@ -120,6 +141,11 @@ router.delete('/:movieId', async (req, res) => {
 // status update
 router.put('/:movieId/status', async (req, res) => {
     try {
+        const watchlist = await Watchlist.findOne({ user: res.locals.user._id });
+        if (!watchlist || !watchlist.movies.includes(req.params.movieId)) {
+            res.redirect('/watchlist');
+            return;
+        }
         const movie = await Movie.findById(req.params.movieId);
         movie.status = req.body.status;
         await movie.save();

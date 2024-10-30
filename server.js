@@ -67,8 +67,8 @@ app.get('/movies/:movieId', async (req, res) => {
     }
     const userReview = reviews.find(review => review.user._id.equals(res.locals.user._id));
     // console.log(movie);
-    console.log('review: ',reviews);
-    console.log('userReview: ', userReview);
+    // console.log('review: ',reviews);
+    // console.log('userReview: ', userReview);
     res.render('show.ejs', { movie, reviews, userReview });
   } catch (error) {
     console.log(error);

@@ -13,7 +13,8 @@
           <h1 class="main-body-header">Edit <%= movie.title %></h1>
         </div>
         <div class="header-btns">
-          <a href="/watchlist" class="new-movie-btn">Cancel</a>
+          <a href="javascript:history.back()" class="new-movie-btn">Cancel</a>
+
       
           <form action="/watchlist/<%= movie._id %>?_method=DELETE" method="POST" style="display:inline;">
             <button type="submit" class="new-movie-btn delete-btn">Delete</button>

@@ -19,7 +19,10 @@
 
             <div class="reviews">
                 <% if (userReview) { %>
-                    <h2>Your Review</h2>
+                    <div class="your-review">
+                        <h2>Your Review</h2>
+                        <a href="/watchlist/<%= movie._id %>/review/<%= userReview._id %>/edit" class="edit-btn">Edit Review</a>
+                    </div>
                     <div class="review-item">
                         <div class="review-rating">
                             <label>Rating:</label>
@@ -33,14 +36,13 @@
                             <label>Review:</label>
                             <span><%= userReview.review %></span>
                         <% } %>
-                        <a href="/watchlist/<%= movie._id %>/review/<%= userReview._id %>/edit">Edit</a>
                     </div>
                 <% } else { %>
                     <a href="/watchlist/<%= movie._id %>/review/new">Add Review</a>
                 <% } %>
 
                 <h2>Reviews</h2>
-                <% if (reviews.length > 1) { %>
+                <% if (reviews.length > 0) { %>
                     <ul>
                         <% reviews.forEach((review) => { %>
                             <% if (locals.user && review.user._id == locals.user._id) { %>
