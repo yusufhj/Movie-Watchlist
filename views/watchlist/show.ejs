@@ -41,7 +41,7 @@
                 <% } %>
         
                 <h2>Reviews</h2>
-                <% if (reviews.length > 0) { %>
+                <% if (reviews.length > 1) { %>
                     <ul>
                         <% reviews.forEach((review) => { %>
                             <% if (review.user._id != locals.user._id) { %>
