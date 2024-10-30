@@ -4,17 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/auth.css" /> 
     <title>Sign In</title>
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1 class="main-body-header">Sign in</h1>
-    <form action="/auth/sign-in" method="POST">
-      <label for="username">Username:</label>
-      <input type="text" name="username" id="username" />
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" />
-      <button type="submit">Sign in</button>
-    </form>
+    <div class="auth-container">
+      <div class="auth-card">
+          <h1>Welcome Back!</h1>
+          <form action="/auth/sign-in" method="POST">
+              <label for="username">Username:</label>
+              <input type="text" name="username" id="username" required placeholder="Enter your username" />
+              
+              <label for="password">Password:</label>
+              <input type="password" name="password" id="password" required placeholder="Enter your password" />
+              
+              <button type="submit">Sign In</button>
+          </form>
+          <p>Don't have an account? <a href="/auth/sign-up">Sign Up</a></p>
+      </div>
+  </div>
   </body>
 </html>

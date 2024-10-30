@@ -27,10 +27,23 @@
 
             <div class="reviews">
                 <% if (userReview) { %>
-                    <h2>Your Review</h2>
-                    <p>Rating: <%= userReview.rating %></p>
-                    <p>Review: <%= userReview.review %></p>
-                    <a href="/watchlist/<%= movie._id %>/review/<%= userReview._id %>/edit">Edit</a>
+                    <div class="your-review">
+                        <h2>Your Review</h2>
+                        <a href="/watchlist/<%= movie._id %>/review/<%= userReview._id %>/edit" class="edit-btn">Edit Review</a>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-rating">
+                            <div class="star-rating1">
+                                <% for (let i = 1; i <= 5; i++) { %>
+                                    <span class="star <% if (i <= userReview.rating) { %> filled <% } %>">&#9733;</span>
+                                <% } %>
+                            </div>
+                        </div>
+                        <% if (userReview.review) { %>
+                            <label>Review:</label>
+                            <span><%= userReview.review %></span>
+                        <% } %>
+                    </div>
                 <% } else { %>
                     <% if (movie.status == "Watched") { %>
                         <p>You have not reviewed this movie yet</p>
@@ -39,16 +52,26 @@
                         <p>You can only review movies you have watched</p>
                     <% } %>
                 <% } %>
-        
+            
                 <h2>Reviews</h2>
-                <% if (reviews.length > 1) { %>
+                <% if (reviews.length > 0) { %>
                     <ul>
                         <% reviews.forEach((review) => { %>
                             <% if (review.user._id != locals.user._id) { %>
                                 <li>
                                     <h3><%= review.user.username %></h3>
-                                    <p>Rating: <%= review.rating %></p>
-                                    <p>Review: <%= review.review %></p>
+                                    <div class="review-rating">
+                                        <label>Rating:</label>
+                                        <div class="star-rating1">
+                                            <% for (let i = 1; i <= 5; i++) { %>
+                                                <span class="star <% if (i <= review.rating) { %> filled <% } %>">&#9733;</span>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <% if (review.review) {%>
+                                        <label>Review:</label>
+                                        <span><%= review.review %></span>
+                                    <% } %>
                                 </li>
                             <% } %>
                         <% }) %>
@@ -57,6 +80,7 @@
                     <p>No reviews yet</p>
                 <% } %>
             </div>
+            
 
         </div>
         <div class="show-poster">

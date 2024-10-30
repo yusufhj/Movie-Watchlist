@@ -48,22 +48,32 @@ app.use(addUserToViews);
 
 // Public Routes
 app.get('/', async (req, res) => {
-  const movies = await Movie.find({});
-  res.render('index.ejs', { movies });
+  try {
+    const movies = await Movie.find({});
+    res.render('index.ejs', { movies });
+  } catch (error) {
+    console.log(error);
+    res.redirect('/');
+  }
 });
 
 app.get('/movies/:movieId', async (req, res) => {
-  const movie = await Movie.findById(req.params.movieId).populate('reviews');
-  const reviews = await Review.find({ movie: req.params.movieId }).populate('user');
-  if (!res.locals.user) {
-    res.render('show.ejs', { movie, reviews, userReview: null });
-    return;
+  try {
+    const movie = await Movie.findById(req.params.movieId).populate('reviews');
+    const reviews = await Review.find({ movie: req.params.movieId }).populate('user');
+    if (!res.locals.user) {
+      res.render('show.ejs', { movie, reviews, userReview: null });
+      return;
+    }
+    const userReview = reviews.find(review => review.user._id.equals(res.locals.user._id));
+    // console.log(movie);
+    console.log('review: ',reviews);
+    console.log('userReview: ', userReview);
+    res.render('show.ejs', { movie, reviews, userReview });
+  } catch (error) {
+    console.log(error);
+    res.redirect('/');
   }
-  const userReview = reviews.find(review => review.user._id.equals(res.locals.user._id));
-  // console.log(movie);
-  console.log('review: ',reviews);
-  console.log('userReview: ', userReview);
-  res.render('show.ejs', { movie, reviews, userReview });
 });
 
 app.use('/auth', authController);
