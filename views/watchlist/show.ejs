@@ -45,12 +45,8 @@
                         <% } %>
                     </div>
                 <% } else { %>
-                    <% if (movie.status == "Watched") { %>
-                        <p>You have not reviewed this movie yet</p>
-                        <a href="/watchlist/<%= movie._id %>/review/new" class="">Add Review</a>
-                    <% } else { %>
-                        <p>You can only review movies you have watched</p>
-                    <% } %>
+                    <p>You have not reviewed this movie yet</p>
+                    <a href="/watchlist/<%= movie._id %>/review/new" class="">Add Review</a>
                 <% } %>
             
                 <h2>Reviews</h2>
