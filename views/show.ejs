@@ -12,10 +12,15 @@
     <div class="show-movie">
         <div class="show-details">
             <h1><%= movie.title %></h1>
-            <p>Genre: <%= movie.genre %></p>
-            <p>Release Date: <%= new Date(movie.releaseDate).toISOString().split('T')[0] %></p>
-            <p>Director: <%= movie.director %></p>
-
+            <% if (movie.genre) { %>
+                <p>Genre: <%= movie.genre %></p>
+            <% } %>
+            <% if (movie.releaseDate) { %>
+                <p>Release Date: <%= new Date(movie.releaseDate).toISOString().split('T')[0] %></p>
+            <% } %>
+            <% if (movie.director) { %>
+                <p>Director: <%= movie.director %></p>
+            <% } %>
 
             <div class="reviews">
                 <% if (userReview) { %>

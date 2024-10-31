@@ -13,9 +13,15 @@
         <div class="show-details">
             <a href="/watchlist/<%= movie._id %>/edit" class="edit-btn">Edit Movie Details</a>
             <h1><%= movie.title %></h1>
-            <p>Genre: <%= movie.genre %></p>
-            <p>Release Date: <%= new Date(movie.releaseDate).toISOString().split('T')[0] %></p>
-            <p>Director: <%= movie.director %></p>
+            <% if (movie.genre) { %>
+                <p>Genre: <%= movie.genre %></p>
+            <% } %>
+            <% if (movie.releaseDate) { %>
+                <p>Release Date: <%= new Date(movie.releaseDate).toISOString().split('T')[0] %></p>
+            <% } %>
+            <% if (movie.director) { %>
+                <p>Director: <%= movie.director %></p>
+            <% } %>
             <form action="/watchlist/<%= movie._id %>/status?_method=PUT" method="POST">
                 <label for="status">Status:</label>
                 <select name="status" id="status" onchange="this.form.submit()">
@@ -80,7 +86,7 @@
 
         </div>
         <div class="show-poster">
-            <img src="<%= movie.poster %>" alt="<%= movie.title %> poster" style="width: 300px; height: auto;">
+            <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="width: 300px; height: auto;">
         </div>
     </div>
 
