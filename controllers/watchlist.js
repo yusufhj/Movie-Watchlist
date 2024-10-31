@@ -104,12 +104,12 @@ router.put('/:movieId', async (req, res) => {
     try {
         const watchlist = await Watchlist.findOne({ user: res.locals.user._id });
         if (!watchlist || !watchlist.movies.includes(req.params.movieId)) {
-            res.redirect('/watchlist');
+            res.redirect('/');
             return;
         }
         const movie = await Movie.findByIdAndUpdate(req.params.movieId, req.body);
         // console.log(movie);
-        res.redirect('/watchlist');
+        res.redirect('/');
     }
     catch (error) {
         console.log(error);
