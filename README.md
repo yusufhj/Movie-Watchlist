@@ -113,5 +113,32 @@ The wireframe mockups for the Movie Watchlist are displayed below. The mockups s
 
 ![Mockups](resources/Mockups.png)
 
+
+## Screenshots
+
+### **Home Page**
+![Home Page](resources/Homepage.png)
+
+### **Register Page**
+![Register Page](resources/Register.png)
+
+### **Show Page**
+![Show Page](resources/Show.png)
+
+
+## Future Enhancements
+
+1. **Search Functionality**: Add a search bar to search for movies by title, genre, or director.
+2. **Filter Movies**: Add filters to sort movies by genre, release date, or rating.
+3. **User Profile**: Create a user profile page to view user details and watchlist.
+4. **Social Sharing**: Add social sharing buttons to share movie reviews on social media.
+5. **Movie Recommendations**: Implement a recommendation system to suggest movies based on user preferences.
+6. **Movie Details**: Add more details to the movie page, such as cast, crew, and plot summary.
+7. **Use API**: Integrate a movie database API to fetch movie details and images.
+
+
+## Depployed Link
+- [Movie Watchlist Tracker](https://movie-watchlist-app-336ac2ca21a2.herokuapp.com)
+
 ## Attribution
 - [General Assembly Auth Template](https://github.com/SEB-1-Bahrain/instructor-men-auth.git)
