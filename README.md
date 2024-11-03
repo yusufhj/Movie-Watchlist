@@ -12,6 +12,9 @@ The Movie Watchlist Tracker is a CRUD web application designed to help users man
 - Explore and view movies from other users
 - Delete movies from the watchlist
 
+## Depployed Link
+- [Movie Watchlist Tracker](https://movie-watchlist-app-336ac2ca21a2.herokuapp.com)
+
 ## User Stories
 
 1. **User Registration and Login**
@@ -137,8 +140,6 @@ The wireframe mockups for the Movie Watchlist are displayed below. The mockups s
 7. **Use API**: Integrate a movie database API to fetch movie details and images.
 
 
-## Depployed Link
-- [Movie Watchlist Tracker](https://movie-watchlist-app-336ac2ca21a2.herokuapp.com)
 
 ## Attribution
 - [General Assembly Auth Template](https://github.com/SEB-1-Bahrain/instructor-men-auth.git)
