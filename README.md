@@ -105,18 +105,6 @@ FUNCTION exploreMovies():
     RETURN allMovies
 ```
 
-## Database Schema (ERD Diagram)
-The database schema consists of three main tables: Users, Movies, and Reviews. The Users table stores user information, the Movies table stores movie details and status, and the Reviews table stores user reviews and ratings for movies. The Watchlist_movies table is a junction table that connects Users and Movies to create a many-to-many relationship.
-
-![ERD Diagram](resources/ERD.png)
-
-
-## Movie Watchlist Wireframe Mockups
-The wireframe mockups for the Movie Watchlist are displayed below. The mockups show the user interface for the main features of the application, including the user registration and login page, the movie details page, and the explore movies page:
-
-![Mockups](resources/Mockups.png)
-
-
 ## Screenshots
 
 ### **Home Page**
@@ -127,6 +115,18 @@ The wireframe mockups for the Movie Watchlist are displayed below. The mockups s
 
 ### **Show Page**
 ![Show Page](resources/Show.png)
+
+
+## Database Schema (ERD Diagram)
+The database schema consists of three main tables: Users, Movies, and Reviews. The Users table stores user information, the Movies table stores movie details and status, and the Reviews table stores user reviews and ratings for movies. The Watchlist_movies table is a junction table that connects Users and Movies to create a many-to-many relationship.
+
+![ERD Diagram](resources/ERD.png)
+
+
+## Movie Watchlist Wireframe Mockups
+The wireframe mockups for the Movie Watchlist are displayed below. The mockups show the user interface for the main features of the application, including the user registration and login page, the movie details page, and the explore movies page:
+
+![Mockups](resources/Mockups.png)
 
 
 ## Future Enhancements
